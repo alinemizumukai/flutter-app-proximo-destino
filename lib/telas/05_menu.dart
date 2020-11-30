@@ -21,14 +21,14 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
         child: Center(
           child: ListView(            
             children: [
-              ItemPlanner('Passagens', '/tela6'),
-              ItemPlanner('Hospedagens', '/tela8'),
-              ItemPlanner('Seguro Viagem', '/tela99'),
-              ItemPlanner('Imigração - Documentos', '/tela10'),
-              ItemPlanner('Bagagem - Lista', '/tela11'),
-              //ItemPlanner('Roteiros', '/tela99'),
-              //ItemPlanner('Compra de Moeda', '/tela99'),
-              //ItemPlanner('Utilidades Gerais', '/tela99'),
+              ItemPlanner('Transporte', '/tela7'),
+              ItemPlanner('Hospedagem', '/tela9'),
+              //ItemPlanner('Seguro Viagem', '/tela0'),              
+              ItemPlanner('Documentos / Imigração', '/tela10'),            
+              ItemPlanner('Lista de Bagagem - Lista', '/tela11'),
+              //ItemPlanner('Roteiro', '/tela0'),
+              //ItemPlanner('Compra de Moeda', '/tela0'),
+              //ItemPlanner('Outras Informações', '/tela0'),
             ],
           ),        
         ),

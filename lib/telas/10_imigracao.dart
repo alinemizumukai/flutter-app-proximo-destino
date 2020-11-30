@@ -56,6 +56,7 @@ class _ImigracaoDocState extends State<ImigracaoDoc> {
                         docs.add(txtDocumento.text);
                         docs.sort();
                         txtDocumento.text = '';
+                        // ignore: deprecated_member_use
                         scaffoldKey.currentState.showSnackBar(
                                 SnackBar(
                                   content: Text('Documento adicionado.'),
@@ -82,6 +83,7 @@ class _ImigracaoDocState extends State<ImigracaoDoc> {
                       onPressed: (){
                         setState(() {
                           docs.removeAt(index);
+                          // ignore: deprecated_member_use
                           scaffoldKey.currentState.showSnackBar(
                             SnackBar(
                               content: Text('Documento removido.'),

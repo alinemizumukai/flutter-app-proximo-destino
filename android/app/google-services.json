@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "471280129071",
+    "firebase_url": "https://app-proximo-destino.firebaseio.com",
+    "project_id": "app-proximo-destino",
+    "storage_bucket": "app-proximo-destino.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471280129071:android:a38f5e5916e4e2bbc822da",
+        "android_client_info": {
+          "package_name": "com.example.app_atividade_avaliativa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "471280129071-v371782a65b2blrtdfq3mpgiasq9an1g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMFaiDglLm21gspMnMEnyb6kwMTeuR7as"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "471280129071-v371782a65b2blrtdfq3mpgiasq9an1g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

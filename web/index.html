@@ -18,6 +18,33 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use - corrigir para a mesma versão do de cima
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+     
+
+<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-firestore.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDw1Z0HPdy7kJzXp_Aaw2LxKuDvU6AHCbY",
+    authDomain: "app-proximo-destino.firebaseapp.com",
+    databaseURL: "https://app-proximo-destino.firebaseio.com",
+    projectId: "app-proximo-destino",
+    storageBucket: "app-proximo-destino.appspot.com",
+    messagingSenderId: "471280129071",
+    appId: "1:471280129071:web:2b5b3d29020fc4dac822da"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->

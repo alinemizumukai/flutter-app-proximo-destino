@@ -25,10 +25,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     centerTitle: true,
     actions: [
       IconButton(
-        icon: Icon(Icons.info_outline, size: 32,),
+        icon: Icon(Icons.info_outline, size: 34,),
         tooltip: 'Sobre o aplicativo',
         onPressed: (){
-          Navigator.pushNamed(context, '/tela4');
+          Navigator.pushNamed(context, '/tela99');
         },
       ),
     ],
@@ -37,165 +37,85 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 //
-// CAMPO DE TEXTO
+// ENTRADA DE DADOS - PADRÃO
 //
 
-Widget campoTexto(rotulo, variavelControle){  
-  return Container(
-    padding: EdgeInsets.all(5),
-    child: TextFormField(
-      controller: variavelControle,
-      style: TextStyle(fontSize: 20),
-      decoration: InputDecoration(
-        labelText: rotulo,
-        labelStyle: TextStyle(fontSize: 18), 
-      ),      
-    ),
-  );
-}
-
-//
-// ENTRADA DE DADOS
-//
-
-class VlrUser extends StatelessWidget {
+// ignore: must_be_immutable
+class TxtEntrada extends StatelessWidget {
 
   final String rotulo;
-  final Function ajuste;
-  
-  VlrUser({this.rotulo, this.ajuste}): super();
+  var controle;
+  final Function validador;
 
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: rotulo
-      ),
-      onChanged: ajuste,
-  );
-  }
-}
-
-//
-// BOTÃO PRINCIPAL
-//
-
-class BtnPrincipal extends StatelessWidget {
-
-  final String rotulo;
-  final String tela;
-
-  BtnPrincipal(this.rotulo, this.tela): super();
+  TxtEntrada({this.rotulo, this.controle, this.validador}):super();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-    padding: EdgeInsets.all(30),
-    child: RaisedButton(
-      child: Text(
-        rotulo,
-        style: TextStyle(color: Colors.white, fontSize: 18),
+      padding: EdgeInsets.all(5),
+      child: TextFormField(
+      controller: controle,
+      style: TextStyle(fontSize: 20),
+        decoration: InputDecoration(
+          labelText: rotulo,
+          labelStyle: TextStyle(fontSize: 18), 
+        ),  
+      validator: validador, 
       ),
-      color: Theme.of(context).primaryColor,
-      onPressed: (){         
-        Navigator.pushNamed(context, tela);          
-      }, 
-    ),
-  );
+    );
   }
+  
 }
 
+
 //
-// BOTÃO SECUNDÁRIO
+// BOTÃO - PADRÃO
 //
 
-class BtnSecundario extends StatelessWidget {
+class Botao extends StatelessWidget {
 
   final String rotulo;
-  final String tela;
+  final Function acao;
 
-  BtnSecundario(this.rotulo, this.tela): super();
+  Botao({this.rotulo, this.acao}): super();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(30),
-    child: FlatButton(
+      child: RaisedButton(
       child: Text(
         rotulo,
-        style: TextStyle(color: Colors.grey[600], fontSize: 18),
-      ),      
-      color: Theme.of(context).backgroundColor,
-      onPressed: (){ 
-        Navigator.pushNamed(context, tela);          
-      }, 
+        style: TextStyle(color: Colors.white, fontSize: 18),
+      ),
+      color: Theme.of(context).primaryColor,
+      onPressed: acao,
     ),
     );
   }
 }
 
 //
-//CARTÃO - MENU PRINCIPAL
+// BOTÃO ADICIONAR
 //
 
-class Destino extends StatelessWidget {
+class BotaoAdd extends StatelessWidget {
+  final String dica;
+  final Function acao;
 
-  final String destino;
-  final Function delete;
-  
-  Destino({this.destino, this.delete}): super(); 
+  BotaoAdd({this.dica, this.acao}): super();
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 50.0),
-      color: Colors.grey[100],            
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.1),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Text(
-              destino,
-              style: TextStyle(
-                fontSize: 30.0,              
-              ),
-            ),
-            SizedBox(height: 2.0,),
-            Text(
-              'xx/xx/xxxx',
-              style: TextStyle(
-                fontSize: 16.0,              
-              ),
-            ),
-            SizedBox(height: 2.0,),
-            Text(
-              '0,00',
-              style: TextStyle(
-                fontSize: 16.0,              
-              ),
-            ),          
-            ButtonBar(
-                children: <Widget>[
-                  FlatButton(                    
-                    onPressed: (){
-                      Navigator.pushNamed(context, '/tela5', arguments: destino);
-                    },
-                    child: Text('DETALHES'),
-                  ),
-                  FlatButton(
-                    onPressed: delete,                    
-                    child: Text('EXCLUIR'),
-                  ),
-                ],            
-            ),                 
-          ],
-        ),
-      )      
+    return FloatingActionButton(
+      child: Icon(Icons.add),
+      backgroundColor: Theme.of(context).primaryColor,
+      tooltip: dica,
+      onPressed: acao,       
     );
-  }  
+  }
 }
+
 
 //
 // PLANNER

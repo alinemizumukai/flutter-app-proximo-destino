@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../widgets.dart';
 
@@ -8,17 +9,46 @@ class Passagens extends StatefulWidget {
 
 class _PassagensState extends State<Passagens> {
 
-  var txtEmpresa;
-  var txtTipo;
-  var txtTrecho;
-  var txtData;
-  var txtHorario;
-  var txtPreco;
+
+  //Instanciar Firebase
+  var db = FirebaseFirestore.instance;
+
+  var txtEmpresa = TextEditingController();
+  var txtTipo = TextEditingController();
+  var txtTrecho = TextEditingController();
+  var txtData = TextEditingController();
+  var txtHorario = TextEditingController();
+  var txtPreco = TextEditingController();
+
+  //Recuperar um DOCUMENTO a partir do ID
+  void getDocumentById(String id) async{
+    await db.collection('transporte').doc(id).get()
+      .then((doc) {
+
+        txtEmpresa.text = doc.data()['empresa'];
+        txtTipo.text = doc.data()['tipo'];
+        txtTrecho.text = doc.data()['trecho'];
+        txtData.text = doc.data()['data'];
+        txtHorario.text = doc.data()['hora'];
+        txtPreco.text = doc.data()['preco'];
+
+      });
+  }
+  
 
   @override
   Widget build(BuildContext context) {
+    //Se for alteração, recuperar o ID
+    final String id = ModalRoute.of(context).settings.arguments;
+
+    if (id != null){
+      if (txtEmpresa.text == '' && txtTipo.text == '' && txtTrecho.text == '' && txtData.text == '' && txtHorario.text == '' && txtPreco.text == ''){
+        getDocumentById(id);
+      }
+    }
+
     return Scaffold(
-      appBar: MyAppBar('Passagens'),
+      appBar: MyAppBar('Transporte'),
       backgroundColor: Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
         child: Container(
@@ -26,73 +56,59 @@ class _PassagensState extends State<Passagens> {
           child: Center(
             child: Column(
               children: [
-                VlrUser(
-                  rotulo: 'Empresa',
-                  ajuste: (value){
-                    setState((){
-                      txtEmpresa = value.toString();                      
-                    });
-                  }
-                ),
-                VlrUser(
-                  rotulo: 'Tipo',
-                  ajuste: (value){
-                    setState((){
-                      txtTipo = value.toString();                      
-                    });
-                  }
-                ),
-                VlrUser(
-                  rotulo: 'Trecho',
-                  ajuste: (value){
-                    setState((){
-                      txtTrecho = value.toString();                      
-                    });
-                  }
-                ),
-                VlrUser(
-                  rotulo: 'Data',
-                  ajuste: (value){
-                    setState((){
-                      txtData = value.toString();                      
-                    });
-                  }
-                ),
-                VlrUser(
-                  rotulo: 'Horário',
-                  ajuste: (value){
-                    setState((){
-                      txtHorario = value.toString();                      
-                    });
-                  }
-                ),
-                VlrUser(
-                  rotulo: 'Preço',
-                  ajuste: (value){
-                    setState((){
-                      txtPreco = value.toString();                      
-                    });
-                  }
-                ),
+                
+                TxtEntrada(rotulo: 'Empresa', controle: txtEmpresa),
+                TxtEntrada(rotulo: 'Tipo de transporte', controle: txtTipo),
+                TxtEntrada(rotulo: 'Trecho', controle: txtTrecho),
+                TxtEntrada(rotulo: 'Data', controle: txtData),
+                TxtEntrada(rotulo: 'Horário', controle: txtHorario),
+                TxtEntrada(rotulo: 'Preço', controle: txtPreco),
 
-                RaisedButton(
-                  child: Text(
-                    'Salvar',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                  color: Theme.of(context).primaryColor,
-                  onPressed: (){ 
-                    var dados = Map();
-                    dados['Empresa'] = txtEmpresa;
-                    dados['Tipo'] = txtTipo;
-                    dados['Trecho'] = txtTrecho;
-                    dados['Data'] = txtData;
-                    dados['Horário'] = txtHorario;
-                    dados['Preço'] = txtPreco;
-                    Navigator.pushNamed(context, '/tela7', arguments: dados);          
-                  }, 
-                ),
-                //BtnSecundario('Consultar Passagens Cadastradas', '/tela7'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Botao(
+                      rotulo: 'Cancelar',
+                      acao: (){
+                        Navigator.pop(context);
+                      }
+                    ),
+                    Botao(
+                      rotulo: 'Adicionar',
+                      acao: ()async{
+
+                        if (id == null){
+                          //Adicionar os dados na coleção 'destinos'
+                          await db.collection("transporte").add(
+                            {
+                              "empresa" : txtEmpresa.text,
+                              "tipo" : txtTipo.text,
+                              "trecho" : txtTrecho.text,
+                              "data" : txtData.text,
+                              "hora" : txtHorario.text,
+                              "preco" : txtPreco.text,
+                            }
+                          );
+                        } else{
+                          //Atualizar os dados da coleção 'destinos'
+                          await db.collection("transporte").doc(id).update(
+                            {
+                              "empresa" : txtEmpresa.text,
+                              "tipo" : txtTipo.text,
+                              "trecho" : txtTrecho.text,
+                              "data" : txtData.text,
+                              "hora" : txtHorario.text,
+                              "preco" : txtPreco.text,
+                            }
+                          );
+                        }
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),  
+
               ],
             ),
           ),

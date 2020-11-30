@@ -56,6 +56,7 @@ class _BagagemState extends State<Bagagem> {
                         bag.add(txtItem.text);
                         bag.sort();
                         txtItem.text = '';
+                        // ignore: deprecated_member_use
                         scaffoldKey.currentState.showSnackBar(
                                 SnackBar(
                                   content: Text('Item adicionado.'),
@@ -82,6 +83,7 @@ class _BagagemState extends State<Bagagem> {
                       onPressed: (){
                         setState(() {
                           bag.removeAt(index);
+                          // ignore: deprecated_member_use
                           scaffoldKey.currentState.showSnackBar(
                             SnackBar(
                               content: Text('Item removido.'),
